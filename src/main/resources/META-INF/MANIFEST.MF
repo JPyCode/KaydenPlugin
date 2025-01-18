@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: C:\Users\henji\Documentos\Code\Paper\Kayden\src\main\java\or
+ g\jpycode\kayden\Kayden.java
+
