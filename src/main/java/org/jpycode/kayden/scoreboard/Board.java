@@ -4,6 +4,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
@@ -16,13 +17,9 @@ public class Board implements Runnable {
     @Override
     public void run() {
         for(Player p : Bukkit.getOnlinePlayers()) {
-            if(p.getWorld().getName().equals("minigames"))
-            if(p.getScoreboard() != null && p.getScoreboard().getObjective("Example") != null)
+            if(p.getScoreboard().getObjective("Example") != null)
                 updateBoard(p);
             else createBoard(p);
-
-
-
         }
 
     }
@@ -31,7 +28,18 @@ public class Board implements Runnable {
         Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective objective = board.registerNewObjective("Example", Criteria.DUMMY, Component.text("§6Example Scoreboard"));
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-        objective.getScore(NamedTextColor.WHITE + " Oi");
+        p.setStatistic(Statistic.WALK_ONE_CM, 0);
+        p.setStatistic(Statistic.SPRINT_ONE_CM, 0);
+
+        Team team1 = board.registerNewTeam("team1");
+        String teamKey = "";
+
+        team1.addEntry("");
+        team1.prefix(Component.text("§5Walked: "));
+        team1.suffix(Component.text("0 m"));
+
+
+        objective.getScore("").setScore(0);
 
         p.setScoreboard(board);
     }
@@ -39,11 +47,10 @@ public class Board implements Runnable {
     private void updateBoard(Player p) {
 
         Scoreboard board = p.getScoreboard();
-
         Team team1 = board.getTeam("team1");
-        assert team1 != null;
-        team1.suffix(Component.text(NamedTextColor.WHITE + "" + (p.getStatistic(Statistic.WALK_ONE_CM) + p.getStatistic(Statistic.SPRINT_ONE_CM)) + " cm"));
 
+        if(team1 != null)
+            team1.suffix(Component.text( (p.getStatistic(Statistic.WALK_ONE_CM) + p.getStatistic(Statistic.SPRINT_ONE_CM)) / 100 + " m"));
     }
 
     public static Board getInstance() {

@@ -2,3 +2,6 @@ name: Kayden
 version: '1.0-SNAPSHOT'
 main: org.jpycode.kayden.Kayden
 api-version: '1.21'
+commands:
+  swords:
+    description: A simple menu that contains custom swords.
