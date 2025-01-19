@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jpycode.kayden.gui.SwordsGUI;
+import org.jpycode.kayden.gui.swordsGUI.SwordsGUI;
 
 public class OpenSwordsGUICommand implements CommandExecutor {
     private final SwordsGUI swordsGUI;

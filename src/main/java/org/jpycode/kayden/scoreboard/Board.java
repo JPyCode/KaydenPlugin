@@ -17,7 +17,7 @@ public class Board implements Runnable {
     @Override
     public void run() {
         for(Player p : Bukkit.getOnlinePlayers()) {
-            if(p.getScoreboard().getObjective("Example") != null)
+            if(p.getScoreboard().getObjective("Scoreboard") != null)
                 updateBoard(p);
             else createBoard(p);
         }
@@ -26,20 +26,17 @@ public class Board implements Runnable {
 
     private void createBoard(Player p) {
         Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
-        Objective objective = board.registerNewObjective("Example", Criteria.DUMMY, Component.text("§6Example Scoreboard"));
+        Objective objective = board.registerNewObjective("Scoreboard", Criteria.DUMMY, Component.text("§4Server Scoreboard"));
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         p.setStatistic(Statistic.WALK_ONE_CM, 0);
         p.setStatistic(Statistic.SPRINT_ONE_CM, 0);
 
         Team team1 = board.registerNewTeam("team1");
-        String teamKey = "";
-
         team1.addEntry("");
         team1.prefix(Component.text("§5Walked: "));
         team1.suffix(Component.text("0 m"));
-
-
         objective.getScore("").setScore(0);
+
 
         p.setScoreboard(board);
     }

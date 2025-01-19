@@ -1,9 +1,7 @@
 package org.jpycode.kayden.listeners;
 
-import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Random;
 
-public class ThunderSword implements Listener {
+public class ThunderSwordListener implements Listener {
 
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent e) {
