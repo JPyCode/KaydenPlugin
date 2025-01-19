@@ -17,13 +17,14 @@ import java.util.List;
 
 public class ThunderSword extends CustomItem {
 
+
     public ThunderSword() {
         super("Thunder Sword", createItem());
     }
 
-    private static ItemStack createItem() {
-        int attackDamage = 10;
-        int criticalChance = 20;
+    public static ItemStack createItem() {
+        int attackDamage = 50;
+        int criticalChance = 25;
         List<Component> lore = Arrays.asList(
                 Component.text("Channel the fury of storms."),
                 Component.text("Critical hits summon lightning."),
@@ -34,6 +35,12 @@ public class ThunderSword extends CustomItem {
 
         AttributeModifier damageModifier = new AttributeModifier(
                 new NamespacedKey(NamespacedKey.BUKKIT, "thunder_sword_damage"),
+                attackDamage, // Sets sword damage to this value
+                AttributeModifier.Operation.ADD_NUMBER
+        );
+
+        AttributeModifier attackSpeedModifier = new AttributeModifier(
+                new NamespacedKey(NamespacedKey.BUKKIT, "thunder_sword_attack_speed"),
                 50, // Sets sword damage to this value
                 AttributeModifier.Operation.ADD_NUMBER
         );
@@ -46,6 +53,7 @@ public class ThunderSword extends CustomItem {
             meta.setCustomModelData(1001);
             meta.addAttributeModifier(Attribute.ATTACK_DAMAGE, damageModifier);
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            meta.addAttributeModifier(Attribute.ATTACK_SPEED, attackSpeedModifier);
             sword.setItemMeta(meta);
         }
 
