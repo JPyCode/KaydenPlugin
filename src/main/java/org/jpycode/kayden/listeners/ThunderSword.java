@@ -15,7 +15,7 @@ public class ThunderSword implements Listener {
             if(e.getDamager() instanceof Player p) {
                 System.out.println("Dano causado: " + e.getDamage());
                 ItemMeta meta = p.getInventory().getItemInMainHand().getItemMeta();
-                if(meta != null && meta.getCustomModelData() == 1001) {
+                if(meta != null && meta.hasCustomModelData() && meta.getCustomModelData() == 1001) {
                     e.getEntity().getWorld().strikeLightning(e.getEntity().getLocation());
                     p.sendMessage(Component.text("You have summoned a thunderstorm!").color(NamedTextColor.DARK_PURPLE));
                 }
