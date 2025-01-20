@@ -16,7 +16,7 @@ public class MentionChatListener implements Listener {
             final Player p;
             if (message[i].matches("^\\w{3,16}$") && (p = Bukkit.getPlayer(message[i])) != null) {
                 message[i] = "§9@" + p.getName() + "§r";
-                p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.2f, 1);
+                p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 0.2f, 0.5f);
             }
         }
 
