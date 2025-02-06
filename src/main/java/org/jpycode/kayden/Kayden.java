@@ -1,9 +1,8 @@
 package org.jpycode.kayden;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
-import org.jpycode.kayden.commands.OpenStatusGUICommand;
-import org.jpycode.kayden.commands.OpenSwordsGUICommand;
+import org.jpycode.kayden.commands.status.OpenStatusGUICommand;
+import org.jpycode.kayden.commands.swords.OpenSwordsGUICommand;
 import org.jpycode.kayden.gui.statusGUI.StatusGUI;
 import org.jpycode.kayden.gui.swordsGUI.SwordsGUI;
 import org.jpycode.kayden.listeners.DamageTracker;

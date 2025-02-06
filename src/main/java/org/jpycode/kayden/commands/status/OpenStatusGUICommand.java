@@ -1,4 +1,4 @@
-package org.jpycode.kayden.commands;
+package org.jpycode.kayden.commands.status;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
