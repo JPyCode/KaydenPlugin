@@ -7,3 +7,5 @@ commands:
     description: A simple menu that contains custom swords.
   status:
     description: Displays the current status of the player.
+  money:
+    description: Economy server command.
