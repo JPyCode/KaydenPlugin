@@ -1,10 +1,10 @@
 package org.jpycode.kayden;
 
 import lombok.Getter;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jpycode.kayden.commands.economy.Balance;
-import org.jpycode.kayden.commands.economy.MoneyCommand;
+import org.jpycode.kayden.commands.economy.Eco;
+import org.jpycode.kayden.commands.economy.Money;
+import org.jpycode.kayden.commands.economy.Pay;
 import org.jpycode.kayden.commands.status.OpenStatusGUICommand;
 import org.jpycode.kayden.commands.swords.OpenSwordsGUICommand;
 import org.jpycode.kayden.gui.statusGUI.StatusGUI;
@@ -15,7 +15,6 @@ import org.jpycode.kayden.listeners.MentionChatListener;
 import org.jpycode.kayden.listeners.ThunderSwordListener;
 import org.jpycode.kayden.scoreboard.MainScoreboard;
 
-import java.io.File;
 import java.util.HashMap;
 
 public final class Kayden extends JavaPlugin {
@@ -40,11 +39,13 @@ public final class Kayden extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new KillListener(playerKills, mainScoreboard), this);
         getServer().getPluginManager().registerEvents(new DamageTracker(this), this);
 
+
         /* Commands */
         getCommand("swords").setExecutor(new OpenSwordsGUICommand(new SwordsGUI(this)));
         getCommand("status").setExecutor(new OpenStatusGUICommand(new StatusGUI(this)));
-        getCommand("money").setExecutor(new MoneyCommand());
-        getCommand("balance").setExecutor(new Balance());
+        getCommand("money").setExecutor(new Money());
+        getCommand("pay").setExecutor(new Pay());
+        getCommand("eco").setExecutor(new Eco());
 
     }
 

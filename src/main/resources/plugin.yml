@@ -5,13 +5,21 @@ api-version: '1.21'
 commands:
   swords:
     description: A simple menu that contains custom swords.
+
   status:
     description: Displays the current status of the player.
+
   money:
-    usage: /money
-    description: Economy server command.
+    description: Shows user's wallet.
+
   balance:
     usage: /balance
     aliases:
       - bal
     description: Shows user's wallet.
+
+  pay:
+
+  eco:
+
+
