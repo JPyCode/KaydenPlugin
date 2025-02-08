@@ -10,16 +10,14 @@ commands:
     description: Displays the current status of the player.
 
   money:
-    description: Shows user's wallet.
-
-  balance:
-    usage: /balance
-    aliases:
-      - bal
+    usage: /money
     description: Shows user's wallet.
 
   pay:
+    usage: /pay
 
   eco:
+    usage: /eco
 
-
+  crates:
+    usage: /crates create <name>

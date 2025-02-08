@@ -20,7 +20,6 @@ public class Eco implements CommandExecutor {
     private static final FileConfiguration economyConfig = YamlConfiguration.loadConfiguration(economyFile);
 
 
-
     public static double getBalance(UUID playerID) {
         return economyConfig.getDouble(playerID.toString(), 0.0);
     }
@@ -76,6 +75,7 @@ public class Eco implements CommandExecutor {
 
                 case "set":
                     setBalance(target.getUniqueId(), value);
+                    return true;
 
                 default:
                     player.sendMessage(ChatColor.RED + "Invalid usage.");
@@ -83,8 +83,8 @@ public class Eco implements CommandExecutor {
             }
         }
         if (player.isOp()) {
-            player.sendMessage("Use: /money [give/remove/pay] <nick> <quantity>");
-        } else player.sendMessage("Use: /money pay <nick> <quantity>");
+            player.sendMessage("Use: /money [give/remove/set] <nick> <quantity>");
+        } else player.sendMessage("Use: /money <nick>");
 
         return true;
     }
@@ -92,12 +92,17 @@ public class Eco implements CommandExecutor {
     public void systemAddBalance(Player player, Player target, double value, boolean message) {
         setBalance(target.getUniqueId(), getBalance(target.getUniqueId()) + value);
         player.sendMessage(ChatColor.GREEN + "You added $ " + value + " to " + target.getName());
-        if(message) target.sendMessage(ChatColor.GOLD + "You received $ " + value + " from system.");
+        if (message) target.sendMessage(ChatColor.GOLD + "You received $ " + value + " from system.");
     }
 
     public void systemRemoveBalance(Player player, Player target, double value, boolean message) {
-        setBalance(target.getUniqueId(), getBalance(target.getUniqueId()) - value);
-        player.sendMessage(ChatColor.RED + "You removed $ " + value + " from " + target.getName());
-        if(message) target.sendMessage(ChatColor.RED + "$ " + value + " has been taken of your balance");
+        if (getBalance(target.getUniqueId()) >= value) {
+            setBalance(target.getUniqueId(), getBalance(target.getUniqueId()) - value);
+            player.sendMessage(ChatColor.RED + "You removed $ " + value + " from " + target.getName());
+            if (message) target.sendMessage(ChatColor.RED + "$ " + value + " has been taken of your balance");
+        } else player.sendMessage(ChatColor.BLACK + "<"+
+                ChatColor.LIGHT_PURPLE+target.getName()+
+                ChatColor.BLACK+">" + ChatColor.RED +
+                " does not have that amount");
     }
 }
