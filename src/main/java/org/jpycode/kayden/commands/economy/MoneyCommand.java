@@ -17,14 +17,14 @@ import java.util.UUID;
 
 public class MoneyCommand implements CommandExecutor {
     private final File economyFile;
-    private final FileConfiguration economyConfig;
+    private static FileConfiguration economyConfig = null;
 
     public MoneyCommand() {
         this.economyFile = new File(Kayden.getInstance().getDataFolder(), "economy.yml");
-        this.economyConfig = YamlConfiguration.loadConfiguration(economyFile);
+        economyConfig = YamlConfiguration.loadConfiguration(economyFile);
     }
 
-    public double getBalance(UUID playerID) {
+    public static double getBalance(UUID playerID) {
         return economyConfig.getDouble(playerID.toString(), 0.0);
     }
 
@@ -48,6 +48,9 @@ public class MoneyCommand implements CommandExecutor {
             sender.sendMessage("Only players can use this command.");
             return true;
         }
+
+        if(command.getName().equalsIgnoreCase("bal") || command.getName().equalsIgnoreCase("balance"))
+            player.sendMessage(String.format(ChatColor.GREEN + "Your balance: " + ChatColor.GOLD + "$ %.2f", getBalance(player.getUniqueId())));
 
         switch (args.length) {
             case 0:

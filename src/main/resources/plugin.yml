@@ -8,4 +8,10 @@ commands:
   status:
     description: Displays the current status of the player.
   money:
+    usage: /money
     description: Economy server command.
+  balance:
+    usage: /balance
+    aliases:
+      - bal
+    description: Shows user's wallet.

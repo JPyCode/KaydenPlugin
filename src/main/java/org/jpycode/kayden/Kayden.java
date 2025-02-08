@@ -3,6 +3,7 @@ package org.jpycode.kayden;
 import lombok.Getter;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jpycode.kayden.commands.economy.Balance;
 import org.jpycode.kayden.commands.economy.MoneyCommand;
 import org.jpycode.kayden.commands.status.OpenStatusGUICommand;
 import org.jpycode.kayden.commands.swords.OpenSwordsGUICommand;
@@ -43,6 +44,7 @@ public final class Kayden extends JavaPlugin {
         getCommand("swords").setExecutor(new OpenSwordsGUICommand(new SwordsGUI(this)));
         getCommand("status").setExecutor(new OpenStatusGUICommand(new StatusGUI(this)));
         getCommand("money").setExecutor(new MoneyCommand());
+        getCommand("balance").setExecutor(new Balance());
 
     }
 
