@@ -15,7 +15,7 @@ public class ThunderSwordListener implements Listener {
     @EventHandler
     public void onPlayerAttack(EntityDamageByEntityEvent e) {
             if(e.getDamager() instanceof Player p) {
-                System.out.println("Dano causado: " + e.getDamage());
+                System.out.println("Henji damaged " + e.getEntity().getName() + ": " + e.getDamage());
                 ItemMeta meta = p.getInventory().getItemInMainHand().getItemMeta();
                 if(meta != null && meta.hasCustomModelData() && meta.getCustomModelData() == 1001) {
                     Random rand = new Random();

@@ -8,11 +8,12 @@ import org.jpycode.kayden.commands.economy.Money;
 import org.jpycode.kayden.commands.economy.Pay;
 import org.jpycode.kayden.commands.status.OpenStatusGUICommand;
 import org.jpycode.kayden.commands.swords.OpenSwordsGUICommand;
+import org.jpycode.kayden.database.Database;
 import org.jpycode.kayden.gui.statusGUI.StatusGUI;
 import org.jpycode.kayden.gui.swordsGUI.SwordsGUI;
-import org.jpycode.kayden.listeners.DamageTracker;
 import org.jpycode.kayden.listeners.KillListener;
 import org.jpycode.kayden.listeners.MentionChatListener;
+import org.jpycode.kayden.listeners.PlayerJoinListener;
 import org.jpycode.kayden.listeners.ThunderSwordListener;
 import org.jpycode.kayden.managers.CrateManager;
 import org.jpycode.kayden.scoreboard.MainScoreboard;
@@ -30,9 +31,10 @@ public final class Kayden extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        Database.connect();
         instance = this;
-        getLogger().info("@ Kayden Plugin enabled");
         mainScoreboard = new MainScoreboard(this, playerKills);
+
 
 
         /* Listeners */
@@ -40,8 +42,8 @@ public final class Kayden extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ThunderSwordListener(), this);
         getServer().getPluginManager().registerEvents(new StatusGUI(this), this);
         getServer().getPluginManager().registerEvents(new MentionChatListener(), this);
-        getServer().getPluginManager().registerEvents(new KillListener(playerKills, mainScoreboard), this);
-        getServer().getPluginManager().registerEvents(new DamageTracker(this), this);
+        getServer().getPluginManager().registerEvents(new KillListener(playerKills, mainScoreboard, this), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
 
 
         /* Commands */
@@ -52,6 +54,9 @@ public final class Kayden extends JavaPlugin {
         getCommand("eco").setExecutor(new Eco());
         getCommand("crates").setExecutor(new CrateCommand(crateManager));
 
+
+
+        getLogger().info("@ Kayden Plugin enabled");
     }
 
     @Override

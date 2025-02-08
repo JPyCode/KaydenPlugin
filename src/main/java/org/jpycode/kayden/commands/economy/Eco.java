@@ -45,14 +45,13 @@ public class Eco implements CommandExecutor {
             return true;
         }
 
+        if (!player.isOp()) {
+            player.sendMessage(ChatColor.RED + "You do not have permission to execute that command.");
+            return true;
+        }
+
         if (args.length == 3) {
             Player target = Bukkit.getPlayer(args[1]);
-
-            if ((args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("remove")) && !player.isOp()) {
-                player.sendMessage(ChatColor.RED + "You do not have permission to execute that command.");
-                return true;
-            }
-
             if (target == null) {
                 player.sendMessage(ChatColor.RED + "Player not found.");
                 return true;
@@ -65,7 +64,7 @@ public class Eco implements CommandExecutor {
                 return true;
             }
             switch (args[0].toLowerCase()) {
-                case "give":
+                case "add":
                     systemAddBalance(player, target, value, true);
                     return true;
 
@@ -82,9 +81,6 @@ public class Eco implements CommandExecutor {
                     return true;
             }
         }
-        if (player.isOp()) {
-            player.sendMessage("Use: /money [give/remove/set] <nick> <quantity>");
-        } else player.sendMessage("Use: /money <nick>");
 
         return true;
     }

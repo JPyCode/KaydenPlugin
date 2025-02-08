@@ -21,7 +21,7 @@ public class Money implements CommandExecutor {
         if(args.length == 0) {
             player.sendMessage(String.format(ChatColor.GREEN + "Your balance: " + ChatColor.GOLD + "$ %.2f", getBalance(player.getUniqueId())));
         } else if(args.length == 1 && Bukkit.getPlayer(args[0]) instanceof Player target) {
-            player.sendMessage(String.format(ChatColor.GREEN + "Your balance: " + ChatColor.GOLD + "$ %.2f", getBalance(target.getUniqueId())));
+            player.sendMessage(String.format(ChatColor.GREEN + target.getName() + "'s balance: " + ChatColor.GOLD + "$ %.2f", getBalance(target.getUniqueId())));
         } else {
             player.sendMessage(ChatColor.RED + "Invalid usage.");
         }

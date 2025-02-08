@@ -11,6 +11,7 @@ commands:
 
   money:
     usage: /money
+    aliases: [bal, balance]
     description: Shows user's wallet.
 
   pay:
