@@ -22,3 +22,5 @@ commands:
 
   crates:
     usage: /crates create <name>
+
+  market:
