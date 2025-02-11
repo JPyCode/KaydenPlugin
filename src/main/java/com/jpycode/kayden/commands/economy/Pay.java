@@ -8,39 +8,49 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static com.jpycode.kayden.commands.economy.Eco.getBalance;
-import static com.jpycode.kayden.commands.economy.Eco.setBalance;
+import static com.jpycode.kayden.database.Database.getBalance;
+import static com.jpycode.kayden.database.Database.setBalance;
 
 public class Pay implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
-        if(!(sender instanceof Player player)) {
-            sender.sendMessage("Only players can use this command.");
+        if (!(sender instanceof Player player)) {
+            sender.sendMessage("Apenas jogadores podem usar este comando.");
             return true;
         }
         double value = Double.parseDouble(args[1]);
         Player target = Bukkit.getPlayer(args[0]);
-
-        if (getBalance(player.getUniqueId()) < value) {
-            player.sendMessage(ChatColor.RED + "Insufficient balance");
+        if (player.getUniqueId() == target.getUniqueId()) {
+            player.sendMessage(ChatColor.RED + "Você não pode enviar dinheiro para si mesmo!");
             return true;
         }
-
-        if(player.getUniqueId() == target.getUniqueId()) {
-            player.sendMessage(ChatColor.RED + "You can't send money to yourself.");
-            return true;
-        }
-
-        payExec(player, target, value);
+        checkBalanceAndPay(player, target, value);
 
         return false;
     }
 
-    private void payExec(Player player, Player target, double value) {
-        setBalance(player.getUniqueId(), getBalance(player.getUniqueId()) - value);
-        setBalance(target.getUniqueId(), getBalance(target.getUniqueId()) + value);
+    public void checkBalanceAndPay(Player player, Player target, double value) {
+        getBalance(player).thenAccept(balance -> {
+            if (balance < value) {
+                player.sendMessage(ChatColor.RED + "Saldo insuficiente.");
+                return;
+            }
+            payExec(player, target, value);
+        });
+    }
 
-        player.sendMessage(ChatColor.GREEN + "You sent $ " + value + " to " + target.getName());
-        target.sendMessage(ChatColor.GOLD + "You received " + value + " from " + player.getName());
+    private void payExec(Player player, Player target, double value) {
+        getBalance(player).thenCompose(playerBalance ->
+                getBalance(target).thenAccept(targetBalance -> {
+
+                    setBalance(player, playerBalance - value);
+                    setBalance(target, targetBalance - value);
+
+                    player.sendMessage(ChatColor.GREEN + "Você enviou R$ " + value + " para " + target.getName());
+                    target.sendMessage(ChatColor.GOLD + "Você recebeu R$ " + value + " de " + player.getName());
+
+
+                }));
+
     }
 }

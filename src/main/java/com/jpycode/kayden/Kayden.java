@@ -26,12 +26,18 @@ public final class Kayden extends JavaPlugin {
     private MainScoreboard mainScoreboard;
     @Getter
     private static Kayden instance;
+    private final Database database = new Database(this);
     private CrateManager crateManager;
 
 
     @Override
     public void onEnable() {
-        Database.connect();
+        database.connect()
+                .thenRun(() -> getLogger().info("Conexão com o banco de dados estabelecida com sucesso!"))
+                .exceptionally(ex -> {
+                    getLogger().severe("Erro: " + ex.getMessage());
+                    return null;
+                });
         instance = this;
         mainScoreboard = new MainScoreboard(this);
 

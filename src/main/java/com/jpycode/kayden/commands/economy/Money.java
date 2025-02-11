@@ -7,8 +7,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import static com.jpycode.kayden.database.Database.getBalance;
 
-import static com.jpycode.kayden.commands.economy.Eco.getBalance;
 
 public class Money implements CommandExecutor {
     @Override
@@ -19,11 +19,18 @@ public class Money implements CommandExecutor {
         }
 
         if(args.length == 0) {
-            player.sendMessage(String.format(ChatColor.GREEN + "Your balance: " + ChatColor.GOLD + "$ %.2f", getBalance(player.getUniqueId())));
+            getBalance(player).thenAccept(balance -> {
+                player.sendMessage(String.format(ChatColor.GREEN + "Saldo: " + ChatColor.GOLD + "R$ %.2f", balance));
+            });
         } else if(args.length == 1 && Bukkit.getPlayer(args[0]) instanceof Player target) {
-            player.sendMessage(String.format(ChatColor.GREEN + target.getName() + "'s balance: " + ChatColor.GOLD + "$ %.2f", getBalance(target.getUniqueId())));
+            getBalance(target).thenAccept(balance -> {
+                player.sendMessage(String.format(ChatColor.GREEN + "Saldo de " +
+                        ChatColor.LIGHT_PURPLE + target.getName() +
+                        ChatColor.GREEN + ": "+ ChatColor.GOLD + "R$ %.2f", balance));
+
+            });
         } else {
-            player.sendMessage(ChatColor.RED + "Invalid usage.");
+            player.sendMessage(ChatColor.RED + "Uso inválido.");
         }
         return true;
     }
