@@ -2,6 +2,7 @@ name: Kayden
 version: '1.0-SNAPSHOT'
 main: com.jpycode.kayden.Kayden
 api-version: '1.21'
+softdepend: [DiscordSRV]
 commands:
   swords:
     description: A simple menu that contains custom swords.
@@ -24,3 +25,4 @@ commands:
     usage: /crates create <name>
 
   market:
+

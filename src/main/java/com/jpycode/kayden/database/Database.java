@@ -1,6 +1,5 @@
 package com.jpycode.kayden.database;
 
-import lombok.Getter;
 import org.bukkit.entity.Player;
 
 import java.sql.Connection;
