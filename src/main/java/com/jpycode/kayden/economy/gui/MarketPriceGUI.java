@@ -1,5 +1,6 @@
-package com.jpycode.kayden.economy.market;
+package com.jpycode.kayden.economy.gui;
 
+import com.jpycode.kayden.economy.market.MarketItem;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

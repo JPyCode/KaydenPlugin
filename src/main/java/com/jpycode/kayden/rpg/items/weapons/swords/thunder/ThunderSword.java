@@ -1,4 +1,4 @@
-package com.jpycode.kayden.items.weapons.swords;
+package com.jpycode.kayden.rpg.items.weapons.swords.thunder;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -10,7 +10,7 @@ import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import com.jpycode.kayden.items.base.CustomItem;
+import com.jpycode.kayden.rpg.items.base.CustomItem;
 
 import java.util.Arrays;
 import java.util.List;

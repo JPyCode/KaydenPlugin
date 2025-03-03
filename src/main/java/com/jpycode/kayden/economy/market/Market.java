@@ -19,9 +19,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 import static com.jpycode.kayden.economy.database.MarketItem.getItensVendidos;
-import static com.jpycode.kayden.economy.market.MarketPriceGUI.openPriceGUI;
+import static com.jpycode.kayden.economy.gui.MarketPriceGUI.openPriceGUI;
 
-public class MarketSystem implements Listener, CommandExecutor {
+public class Market implements Listener, CommandExecutor {
 
     private static final Map<Player, ItemStack> sellingItems = new HashMap<>();
     public static Map<ItemStack, Integer> mapPrecos = new HashMap<>();

@@ -22,6 +22,3 @@ commands:
 
   market:
     usage: /market
-
-  shop:
-    usage: /shop

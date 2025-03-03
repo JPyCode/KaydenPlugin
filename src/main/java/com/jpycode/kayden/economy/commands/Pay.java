@@ -1,4 +1,4 @@
-package com.jpycode.kayden.economy.commands.economy;
+package com.jpycode.kayden.economy.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;

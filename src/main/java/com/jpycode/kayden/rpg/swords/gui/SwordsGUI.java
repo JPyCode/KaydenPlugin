@@ -1,4 +1,4 @@
-package com.jpycode.kayden.gui.swordsGUI;
+package com.jpycode.kayden.rpg.swords.gui;
 
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.jpycode.kayden.items.weapons.swords.ThunderSword;
+import com.jpycode.kayden.rpg.items.weapons.swords.thunder.ThunderSword;
 
 public class SwordsGUI implements Listener {
 

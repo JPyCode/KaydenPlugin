@@ -1,4 +1,4 @@
-package com.jpycode.kayden.economy.utils;
+package com.jpycode.kayden.rpg.swords.utils;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;

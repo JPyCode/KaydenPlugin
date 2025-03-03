@@ -1,5 +1,6 @@
-package com.jpycode.kayden.economy.market;
+package com.jpycode.kayden.economy.listeners;
 
+import com.jpycode.kayden.economy.market.ItemVenda;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ import static com.jpycode.kayden.economy.database.BalanceAsync.getBalance;
 import static com.jpycode.kayden.economy.database.BalanceAsync.setBalance;
 import static com.jpycode.kayden.economy.database.MarketItem.getItensVendidos;
 
-public class MarketBuy implements Listener {
+public class MarketBuyListener implements Listener {
 
     @EventHandler
     public void onMarketBuy(InventoryClickEvent e) {

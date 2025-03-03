@@ -1,4 +1,4 @@
-package com.jpycode.kayden.listeners;
+package com.jpycode.kayden.rpg.items.weapons.swords.thunder;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

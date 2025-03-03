@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.jpycode.kayden.economy.market.MarketPriceGUI.deserializeItemStack;
-import static com.jpycode.kayden.economy.market.MarketPriceGUI.serializeItemStack;
+import static com.jpycode.kayden.economy.gui.MarketPriceGUI.deserializeItemStack;
+import static com.jpycode.kayden.economy.gui.MarketPriceGUI.serializeItemStack;
 
 public class MarketItem {
     private static Connection connection = Database.getConnection();

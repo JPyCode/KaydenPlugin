@@ -1,6 +1,6 @@
-package com.jpycode.kayden.economy.listeners.shop;
+package com.jpycode.kayden.rpg.swords.shop;
 
-import com.jpycode.kayden.economy.utils.ShopItemLoader;
+import com.jpycode.kayden.rpg.swords.utils.ShopItemLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;

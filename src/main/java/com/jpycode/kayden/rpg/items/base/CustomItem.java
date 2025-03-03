@@ -1,4 +1,4 @@
-package com.jpycode.kayden.items.base;
+package com.jpycode.kayden.rpg.items.base;
 
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class CustomItem implements Listener {
