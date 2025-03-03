@@ -1,6 +1,10 @@
 package com.jpycode.kayden;
 
 import com.jpycode.kayden.economy.commands.SwordShop;
+import com.jpycode.kayden.economy.listeners.EntityDamage;
+import com.jpycode.kayden.economy.listeners.shop.InventoryClickListener;
+import com.jpycode.kayden.economy.market.MarketBuy;
+import com.jpycode.kayden.economy.market.MarketPriceGUI;
 import com.jpycode.kayden.economy.market.MarketSystem;
 import com.jpycode.kayden.scoreboard.MainScoreboard;
 import lombok.Getter;
@@ -45,7 +49,11 @@ public final class Kayden extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new StatusGUI(), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new KillListener(), this);
-
+        getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
+        getServer().getPluginManager().registerEvents(new EntityDamage(), this);
+        getServer().getPluginManager().registerEvents(new MarketPriceGUI(), this);
+        getServer().getPluginManager().registerEvents(new MarketSystem(), this);
+        getServer().getPluginManager().registerEvents(new MarketBuy(), this);
 
 
         /* Commands */
