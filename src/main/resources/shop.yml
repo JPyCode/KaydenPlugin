@@ -1,0 +1,29 @@
+# shop.yml
+shop:
+  weapons:
+    name: "Loja de armamentos"
+    items:
+      flaming_sword:
+        item: "DIAMOND_SWORD"
+        damage: 150.0
+        amount: 1
+        price: 1500.0
+        name: "&cEspada Flamejante"
+        lore:
+          - "&7Uma lâmina coberta por chamas."
+          - "&eQueime seus inimigos no combate!"
+        enchants:
+          FIRE_ASPECT: 2
+          UNBREAKING: 100
+
+      lightning_sword:
+        item: "NETHERITE_SWORD"
+        damage: 250.0
+        amount: 1
+        price: 2500.0
+        name: "&bEspada de Raios"
+        lore:
+          - "&7Forjada com o poder dos trovões."
+          - "&eChance de invocar um raio ao atacar!"
+        enchants:
+          UNBREAKING: 100
