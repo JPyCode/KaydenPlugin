@@ -1,5 +1,6 @@
 package com.jpycode.kayden.gui.statusGUI;
 
+import com.jpycode.kayden.Kayden;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -19,12 +20,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class StatusGUI implements Listener {
-    private final JavaPlugin plugin;
+    private final JavaPlugin plugin = Kayden.getInstance();
     private final Map<UUID, PlayerStatus> playerStatusMap = new HashMap<>();
-
-    public StatusGUI(JavaPlugin plugin) {
-        this.plugin = plugin;
-    }
     public void openStatusGUI(Player player) {
 
         UUID playerUUID = player.getUniqueId();

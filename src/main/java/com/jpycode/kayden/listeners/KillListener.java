@@ -1,6 +1,6 @@
 package com.jpycode.kayden.listeners;
 
-import lombok.Getter;
+import com.jpycode.kayden.Kayden;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -12,41 +12,22 @@ import org.bukkit.plugin.Plugin;
 import com.jpycode.kayden.database.Database;
 import com.jpycode.kayden.scoreboard.MainScoreboard;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import static com.jpycode.kayden.database.Database.getKills;
+import static com.jpycode.kayden.scoreboard.MainScoreboard.updateKillsInCache;
 
 public class KillListener implements Listener {
-    private final Plugin plugin;
+    private final Plugin plugin = Kayden.getInstance();
+    private final MainScoreboard scoreboard = new MainScoreboard(Kayden.getInstance());
 
-
-    private static int kills = 0;
-
-    public KillListener(MainScoreboard mainScoreboard, Plugin plugin) {
-        this.plugin = plugin;
-    }
-
-    public static int getKills(Player player) {
-        String getKills = "SELECT kills FROM players_table WHERE uuid = ?";
-        try(Connection conn = Database.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(getKills)) {
-            stmt.setString(1, player.getUniqueId().toString());
-            ResultSet rs = stmt.executeQuery();
-            if(rs.next()) {
-                kills = rs.getInt("kills");
-            }
-        } catch (SQLException exception) {
-            throw new RuntimeException(exception);
-        }
-        return kills++;
-    }
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent e) {
-        Player killer = null;
+        Player killer;
         if (e.getEntity().getKiller() instanceof Player p) {
             killer = p;
         } else {
@@ -54,32 +35,38 @@ public class KillListener implements Listener {
             if (!metadata.isEmpty()) {
                 String killerName = metadata.get(0).asString();
                 killer = e.getEntity().getServer().getPlayer(killerName);
+            } else {
+                killer = null;
             }
         }
 
-        if(killer != null) {
+        if (killer != null) {
             String playerName = killer.getName();
+
             // Incrementa as kills do jogador
-            getKills(killer);
-            String query = "INSERT INTO players_table (uuid, name, kills) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE kills = ?";
-            try(Connection conn = Database.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, killer.getUniqueId().toString());
-                stmt.setString(2, playerName);
-                stmt.setInt(3, kills);
-                stmt.setInt(4, kills);
-                stmt.executeUpdate();
-            } catch (SQLException exception) {
-                throw new RuntimeException(exception);
-            }
-            killer.sendMessage("🔥 Você matou uma entidade! Total de kills: " + kills);
+            getKills(killer).thenAccept(kills -> {
+                int killsUpdate = kills + 1;
+                String query = "INSERT INTO players_table (uuid, name, kills) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE kills = VALUES(kills)";
+                try (PreparedStatement stmt = Database.getConnection().prepareStatement(query)) {
+                    stmt.setString(1, killer.getUniqueId().toString());
+                    stmt.setString(2, playerName);
+                    stmt.setInt(3, killsUpdate);
+                    stmt.executeUpdate();
+                    System.out.println("Kills atualizadas para " + killer.getName() + ": " + killsUpdate);
+                } catch (SQLException exception) {
+                    System.err.println("Erro ao atualizar kills de " + killer.getName() + ": " + exception.getMessage());
+                    throw new RuntimeException(exception);
+                }
+                killer.sendMessage("🔥 Você matou uma entidade! Total de kills: " + killsUpdate);
+                updateKillsInCache(killer, killsUpdate);
+            });
         }
 
     }
 
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent e) {
-        if(e.getDamager() instanceof Player p) {
+        if (e.getDamager() instanceof Player p) {
             e.getEntity().setMetadata("lastAttacker", new FixedMetadataValue(plugin, p.getName()));
         }
     }

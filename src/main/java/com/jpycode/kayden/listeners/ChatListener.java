@@ -1,6 +1,5 @@
 package com.jpycode.kayden.listeners;
 
-import com.jpycode.kayden.hook.DiscordSRVHook;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -23,7 +22,6 @@ public class ChatListener implements Listener {
         }
         e.setMessage(String.join(" ", message));
 
-        DiscordSRVHook.sendMessage("geral", e.getPlayer().getName() + ": " + e.getMessage());
 
 
 

@@ -2,6 +2,7 @@ package com.jpycode.kayden.gui.swordsGUI;
 
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,7 +30,8 @@ public class SwordsGUI implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) throws ClassCastException{
         Player p = (Player) e.getWhoClicked();
-        if (e.getClickedInventory() != null && e.getView().getTitle().equalsIgnoreCase("Swords GUI")) {
+        String title = ChatColor.stripColor(e.getView().getTitle());
+        if (e.getClickedInventory() != null && title.equalsIgnoreCase("Swords GUI")) {
             e.setCancelled(true);
             switch (e.getSlot()) {
                 case 0:

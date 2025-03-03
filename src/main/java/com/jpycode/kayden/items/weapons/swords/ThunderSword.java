@@ -41,7 +41,7 @@ public class ThunderSword extends CustomItem {
 
         AttributeModifier attackSpeedModifier = new AttributeModifier(
                 new NamespacedKey(NamespacedKey.BUKKIT, "thunder_sword_attack_speed"),
-                50, // Sets sword damage to this value
+                50,
                 AttributeModifier.Operation.ADD_NUMBER
         );
 
