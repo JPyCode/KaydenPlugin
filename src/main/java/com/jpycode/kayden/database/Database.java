@@ -51,7 +51,7 @@ public class Database {
 
     public static CompletableFuture<Integer> getKills(Player player) {
         return CompletableFuture.supplyAsync(() -> {
-            String query = "SELECT kills FROM players_table WHERE uuid = ?";
+            String query = "SELECT kills FROM player_kills WHERE uuid = ?";
             try (PreparedStatement stmt = getConnection().prepareStatement(query)) {
 
                 stmt.setString(1, player.getUniqueId().toString());

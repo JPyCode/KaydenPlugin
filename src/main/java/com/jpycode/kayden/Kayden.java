@@ -4,8 +4,7 @@ import com.jpycode.kayden.economy.commands.Eco;
 import com.jpycode.kayden.economy.commands.Money;
 import com.jpycode.kayden.economy.commands.Pay;
 import com.jpycode.kayden.economy.listeners.EntityDamage;
-import com.jpycode.kayden.economy.listeners.shop.InventoryClickListener;
-import com.jpycode.kayden.economy.listeners.MarketBuyListener;
+import com.jpycode.kayden.economy.listeners.MarketListener;
 import com.jpycode.kayden.economy.gui.MarketPriceGUI;
 import com.jpycode.kayden.economy.market.Market;
 import com.jpycode.kayden.scoreboard.MainScoreboard;
@@ -45,19 +44,31 @@ public final class Kayden extends JavaPlugin {
 
 
         /* Listeners */
+
+        // RPG
         getServer().getPluginManager().registerEvents(new SwordsGUI(this), this);
         getServer().getPluginManager().registerEvents(new ThunderSwordListener(), this);
         getServer().getPluginManager().registerEvents(new StatusGUI(), this);
-        getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new KillListener(), this);
-        getServer().getPluginManager().registerEvents(new InventoryClickListener(), this);
-        getServer().getPluginManager().registerEvents(new EntityDamage(), this);
-        getServer().getPluginManager().registerEvents(new MarketPriceGUI(), this);
+
+
+
+        // Economy
         getServer().getPluginManager().registerEvents(new Market(), this);
-        getServer().getPluginManager().registerEvents(new MarketBuyListener(), this);
+        getServer().getPluginManager().registerEvents(new MarketPriceGUI(), this);
+        getServer().getPluginManager().registerEvents(new MarketListener(), this);
+
+
+
+        // General
+        getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        getServer().getPluginManager().registerEvents(new EntityDamage(), this);
+
 
 
         /* Commands */
+
+        // RPG
         getCommand("swords").setExecutor(new OpenSwordsGUICommand(new SwordsGUI(this)));
         getCommand("status").setExecutor(new OpenStatusGUICommand(new StatusGUI()));
 
@@ -88,5 +99,4 @@ public final class Kayden extends JavaPlugin {
             saveResource(fileName, false);
         }
     }
-
 }

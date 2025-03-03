@@ -46,7 +46,7 @@ public class KillListener implements Listener {
             // Incrementa as kills do jogador
             getKills(killer).thenAccept(kills -> {
                 int killsUpdate = kills + 1;
-                String query = "INSERT INTO players_table (uuid, name, kills) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE kills = VALUES(kills)";
+                String query = "INSERT INTO player_kills (uuid, name, kills) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE kills = VALUES(kills)";
                 try (PreparedStatement stmt = Database.getConnection().prepareStatement(query)) {
                     stmt.setString(1, killer.getUniqueId().toString());
                     stmt.setString(2, playerName);
