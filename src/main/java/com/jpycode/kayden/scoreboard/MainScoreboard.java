@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static com.jpycode.kayden.database.Database.*;
+import static com.jpycode.kayden.economy.database.BalanceAsync.getBalance;
 
 public class MainScoreboard {
 
