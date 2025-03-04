@@ -20,7 +20,7 @@ public class MarketItem {
     private static Connection connection = Database.getConnection();
     public static void saveMarketItem(Player player, ItemStack item, int price, List<String> lore) {
         try (PreparedStatement stmt = connection.prepareStatement(
-                "INSERT INTO market (player_uuid, item_data, price, lore, expires_at) VALUES (?, ?, ?, ?, ?)"
+                "INSERT INTO market (player_uuid, item_data, price, lore, listed_at, expires_at) VALUES (?, ?, ?, ?, ?, ?)"
         )) {
 
             String itemData = serializeItemStack(item); // Converte o ItemStack para String
@@ -35,7 +35,8 @@ public class MarketItem {
             stmt.setString(2, itemData);
             stmt.setInt(3, price);
             stmt.setString(4, loreToSave);
-            stmt.setTimestamp(5, expirationTimestamp);
+            stmt.setString(5, LocalDateTime.now().toString());
+            stmt.setTimestamp(6, expirationTimestamp);
 
             stmt.executeUpdate();
             player.sendMessage(ChatColor.GREEN + "Item listado por 3 dias!");
