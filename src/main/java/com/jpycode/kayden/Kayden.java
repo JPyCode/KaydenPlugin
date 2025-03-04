@@ -7,15 +7,17 @@ import com.jpycode.kayden.economy.listeners.EntityDamage;
 import com.jpycode.kayden.economy.listeners.MarketListener;
 import com.jpycode.kayden.economy.gui.MarketPriceGUI;
 import com.jpycode.kayden.economy.market.Market;
+import com.jpycode.kayden.rpg.stats.Listener.StatsListener;
+import com.jpycode.kayden.rpg.stats.database.StatsManager;
+import com.jpycode.kayden.rpg.stats.gui.StatusGUI;
 import com.jpycode.kayden.scoreboard.MainScoreboard;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.jpycode.kayden.rpg.status.OpenStatusGUICommand;
+import com.jpycode.kayden.rpg.stats.command.StatsCommand;
 import com.jpycode.kayden.rpg.swords.OpenSwordsGUICommand;
 import com.jpycode.kayden.database.Database;
-import com.jpycode.kayden.rpg.status.gui.StatusGUI;
 import com.jpycode.kayden.rpg.swords.gui.SwordsGUI;
 import com.jpycode.kayden.listeners.KillListener;
 import com.jpycode.kayden.listeners.ChatListener;
@@ -32,7 +34,17 @@ public final class Kayden extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
-        Database.connect();
+        Database.connect().thenRun(() -> {
+            getLogger().info("Conexão com o banco de dados estabelecida! Iniciando StatsManager...");
+
+            StatsManager statsManager = new StatsManager();
+            getServer().getPluginManager().registerEvents(new StatsListener(), this);
+            getCommand("stats").setExecutor(new StatsCommand(statsManager));
+        }).exceptionally(e -> {
+            getLogger().severe("Falha ao conectar ao banco de dados: " + e.getMessage());
+            getServer().getPluginManager().disablePlugin(this);
+            return null;
+        });
 
         saveDefaultFile("config.yml");
         saveDefaultFile("shop.yml");
@@ -48,9 +60,8 @@ public final class Kayden extends JavaPlugin {
         // RPG
         getServer().getPluginManager().registerEvents(new SwordsGUI(this), this);
         getServer().getPluginManager().registerEvents(new ThunderSwordListener(), this);
-        getServer().getPluginManager().registerEvents(new StatusGUI(), this);
         getServer().getPluginManager().registerEvents(new KillListener(), this);
-
+        getServer().getPluginManager().registerEvents(new StatsListener(), this);
 
 
         // Economy
@@ -70,7 +81,6 @@ public final class Kayden extends JavaPlugin {
 
         // RPG
         getCommand("swords").setExecutor(new OpenSwordsGUICommand(new SwordsGUI(this)));
-        getCommand("status").setExecutor(new OpenStatusGUICommand(new StatusGUI()));
 
         // Economy
         getCommand("money").setExecutor(new Money());

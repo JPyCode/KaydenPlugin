@@ -6,7 +6,7 @@ commands:
   swords:
     description: A simple menu that contains custom swords.
 
-  status:
+  stats:
     description: Displays the current status of the player.
 
   money:

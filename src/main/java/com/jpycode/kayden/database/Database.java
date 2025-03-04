@@ -8,7 +8,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.sql.*;
 import java.util.concurrent.CompletableFuture;
 
-import static com.jpycode.kayden.scoreboard.MainScoreboard.updateMoneyInCache;
 
 public class Database {
     @Getter
