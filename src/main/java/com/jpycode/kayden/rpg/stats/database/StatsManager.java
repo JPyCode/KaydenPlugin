@@ -45,7 +45,7 @@ public class StatsManager {
                 statsCache.put(uuid, stats);
                 return stats;
             } else {
-                PlayerStats defaultStats = new PlayerStats(uuid, 20, 0, 0, 0, 0);
+                PlayerStats defaultStats = new PlayerStats(uuid, 20, 20, 0, 0, 0);
                 saveStats(defaultStats);
                 return defaultStats;
             }
